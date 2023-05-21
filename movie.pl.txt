@@ -1,0 +1,217 @@
+friend(chris, lee).
+friend(dale, myrna).
+friend(chris, spike).
+friend(pat, chris).
+friend(myrna, sean).
+
+friends(A, A).
+
+friends(A, C) :- friend(A, B), friends(B, C).
+get_friends(X,Y):- findall(Z,friends(X,Z),Y).
+
+genre(wall-e,animation).
+genre(lion-king,animation).
+genre(up,animation).
+genre(finding-nemo,animation).
+genre(toy-story,animation).
+genre(monsters,animation).
+genre(ratatouille,animation).
+genre(shrek,animation).
+genre(ice-age,animation).
+genre(cars,animation).
+
+
+
+genre(alien,horror).
+genre(psycho,horror).
+genre(shining,horror).
+genre(thing,horror).
+genre(tumbbad,horror).
+genre(exorcist,horror).
+genre(diabolique,horror).
+genre(blue-elephant ,horror).
+genre(i-saw-devil,horror).
+genre(dawn-of-the-dead,horror).
+
+
+
+genre(shawshank-redemption,drama).
+genre(godfather,drama).
+genre(schindlers-list,drama).
+genre(pulp-fiction,drama).
+genre(fight-club,drama).
+genre(forest-gump,drama).
+genre(saving-private-ryan,drama).
+genre(green-mile,drama).
+genre(pianist,drama).
+genre(seven,drama).
+
+
+
+genre(guardian-of-the-galaxy,comedy).
+genre(wolf-of-the-wallstreet,comedy).
+genre(truman-show,comedy).
+genre(deadpool,comedy).
+genre(hangover,comedy).
+genre(amelie,comedy).
+genre(ted,comedy).
+genre(home-alone,comedy).
+genre(zombieland,comedy).
+genre(men-in-black,comedy).
+genre(a,comedy).
+
+genre(dune,adventure).
+genre(inception,adventure).
+genre(lord-of-the-rings,adventure).
+genre(interstaller,adventure).
+genre(star-wars,adventure).
+genre(avatar,adventure).
+genre(back-to-the-future,adventure).
+genre(iron-man,adventure).
+genre(mad-max,adventure).
+genre(jurassic-park,adventure).
+
+
+
+genre(dark-night,thriller).
+genre(silence-of-the-lambs,thriller).
+genre(prestige,thriller).
+genre(shutter-island,thriller).
+genre(joker,thriller).
+genre(momento,thriller).
+genre(parasyte,thriller).
+genre(john-wick,thriller).
+genre(dunkirk,thriller).
+genre(get-out,thriller).
+
+
+
+
+
+genre(titanic,romance).
+genre(her,romance).
+genre(la-la-land,romance).
+genre(notebook,romance).
+genre(passenger,romance).
+genre(yesman,romance).
+genre(eternal-sunshine-of-the-spotless-mind,romance).
+genre(groundhog-day,romance).
+genre(casablanca,romance).
+genre(love-actually,romance).
+
+year(wall-e, 2008).
+year(lion-king, 1994).
+year(up,2009).
+year(finding-nemo, 2003).
+year(toy-story,1995).
+year(monsters, 2001).
+year(ratatouille, 2007).
+year(shrek,2001).
+year(ice-age,2002).
+year(cars, 2006).
+
+year(alien,1979).
+year(psycho,1960).
+year(shining,1980).
+year(thing,1982).
+year(tumbbad,2018).
+year(exorcist,1973).
+year(diabolique,1955).
+year(blue-elephant,2014).
+year(i-saw-devil,2010).
+year(dawn-of-the-dead,1978).
+
+
+year(shawshank-redemption,1994).
+year(godfather,1972).
+year(schindlers-list,1993).
+year(pulp-fiction,1994).
+year(fight-club,1999).
+year(saving-private-ryan,1998).
+year(green-mile,1999).
+year(forest-gump,1994).
+year(pianist,2002).
+year(seven,1995).
+
+
+year(guardian-of-the-galaxy,2014).
+year(wolf-of-the-wallstreet,2013).
+year(truman-show,1998).
+year(deadpool,2016).
+year(hangover,2009).
+year(amelie,2001).
+year(ted,2012).
+year(home-alone,1990).
+year(zombieland,2009).
+year(men-in-black,1997).
+year(a,1985).
+
+year(dune,2022).
+year(inception,2010).
+year(lord-of-the-rings,2001).
+year(interstaller,2014).
+year(star-wars,1977).
+year(avatar,2009).
+year(back-to-the-future,1985).
+year(iron-man,2008).
+year(mad-max,2015).
+year(jurassic-park,1993).
+
+year(dark-night,2008).
+year(silence-of-the-lambs,1991).
+year(prestige,2006).
+year(shutter-island,2010).
+year(joker,2019).
+year(momento,2000).
+year(parasyte,2019).
+year(john-wick,2014).
+year(dunkirk,2017).
+year(get-out,2017).
+
+year(titanic,1997).
+year(her,2013).
+year(la-la-land,2016).
+year(notebook,2004).
+year(passenger,2016).
+year(yesman,2008).
+year(eternal-sunshine-of-the-spotless-mind,2004).
+year(groundhog-day,1993).
+year(casablanca,1942).
+year(love-actually,2003).
+
+
+
+
+
+
+wants_see(pat,X) :- genre(X,comedy). 
+wants_see(sean,X):- genre(X,adventure).
+wants_see(myrna,X):-genre(X,thriller).
+wants_see(lee,X):-  genre(X, Y), Y \= adventure.
+wants_see(dale,X):- genre(X,_).
+wants_see(spike,X) :- year(X,Y),Y>=2000,Y=<2023 .
+wants_see(chris,X) :- genre(X,comedy),year(X,Y),Y>=1980,Y=<1989 .
+
+suggest(Name, Movie) :-
+ setof(Movies,suggestt(Name,Movies), Movie).
+
+suggestt(Name, Movies) :-
+ wants_see(Name,Movies) ,friends(Name,Name2),wants_see(Name2,Movies).
+
+%suggeste(Name, Movie) :-
+ setof(Movies,(wants_see(Name,Movies) ,(get_friends(Name,Name2),wants_see(Name2,Movies))), Movie).
+
+%suggest(Name, Movies) :-friends(Name, Friend),findall(Movie, (wants_see(Name, Movie), wants_see(Friend, Movie)), Movies).
+%suggest(Person, Movies) :-  findall(Movie, wants_see(Person, Movie), Movies).
+
+%suggest(Name, Movie) :-friends(Name, Friend),wants_see(Name, Movie),wants_see(Friend, Movie).
+
+common_movies(Person, Movies) :-
+    get_friends(Person, Friends),
+    findall(Movie, (wants_see(Person, Movie), wants_see_friends(Friends, Movie)), Movies).
+wants_see_friends([], _).
+wants_see_friends([Friend|Rest], Movie) :-
+    wants_see(Friend, Movie),
+    wants_see_friends(Rest, Movie).
+
+movie(Person,X):- genre(X,Y),wants_see(Person,Y).
